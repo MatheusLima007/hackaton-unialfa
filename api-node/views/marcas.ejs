@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="/static/dist/css/bootstrap.min.css" rel="stylesheet" >
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet" >
+
+    <title>Produtos</title>
+  </head>
+  <body>
+    
+    <div class="container mt-5">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Marca</th>
+            <th>Data de Atualização</th>
+            
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% for(let d of data) { %>
+          <tr>
+            <td><%= d.marca %></td>
+            <td data-id="data-<%= d.id %>"><%= d.updatedAt %></td>
+            <td><a href="/edit_marcas/<%=d.id %>" class="btn btn-sm btn-outline-warning">
+              <i class="fa fa-edit"></i>
+            </a></td>
+            <td></td>
+          </tr>
+
+        <% } %>
+          
+        </tbody>
+      </table>
+    </div>
+    <button-plus url="/add_marcas" ></button-plus>
+
+   
+    <script src="/static/dist/umd/popper.min.js"></script>
+    <script src="/static/dist/js/bootstrap.min.js" ></script>
+    <script type="module" src="/static/js/main.js"></script>
+    <script>
+     
+      const plus=document.getElementById('plus');
+      const updatedAt=document.querySelectorAll('[data-id]')
+      
+
+      updatedAt.forEach(d=>{
+        let options={weekday:'long',year:'numeric',month:'long',day:'numeric'};
+        let newDate=new Date(d.textContent).toLocaleDateString(options);
+        
+
+       // let novaData=`${newDate.getDate()}/${newDate.getMonth()}/${newDate.getFullYear()}`;
+
+        d.innerHTML=newDate;
+
+      })
+   
+
+
+
+
+     
+      
+
+      
+      
+
+
+
+
+    </script>
+   
+  </body>
+  
+</html>

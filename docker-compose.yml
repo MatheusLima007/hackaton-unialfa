@@ -1,0 +1,58 @@
+version: "3"
+
+services:
+  laravel.test:
+    build:
+      context: web-laravel/vendor/laravel/sail/runtimes/8.0
+      dockerfile: Dockerfile
+      # args:
+        # WWWGROUP: '${WWWGROUP}'
+    image: sail-8.0/app
+    ports:
+      - '${APP_PORT:-80}:80'
+    environment:
+      # WWWUSER: '${WWWUSER}'
+      LARAVEL_SAIL: 1
+    volumes:
+      - './web-laravel:/var/www/html'
+    networks:
+      - sail
+    depends_on:
+      - pgsql
+  pgsql:
+    image: 'postgres:13'
+    ports:
+      - '${FORWARD_DB_PORT:-5432}:5432'
+    environment:
+      PGPASSWORD: 'password'
+      POSTGRES_DB: 'hackaton'
+      POSTGRES_USER: 'sail'
+      POSTGRES_PASSWORD: 'password'
+    volumes:
+      - 'sailpgsql:/var/lib/postgresql/data'
+    networks:
+      - sail
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-d", "hackaton", "-U", "sail"]
+      retries: 3
+      timeout: 5s
+  api:
+    build: 
+      context: ./api-node
+      dockerfile: Dockerfile
+    container_name: api
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./api-node:/app
+    networks:
+      - sail
+    depends_on: 
+      - pgsql
+
+networks:
+  sail:
+    driver: bridge
+volumes:
+    sailpgsql:
+      driver: local
