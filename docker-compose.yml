@@ -5,13 +5,13 @@ services:
     build:
       context: web-laravel/vendor/laravel/sail/runtimes/8.0
       dockerfile: Dockerfile
-      # args:
-        # WWWGROUP: '${WWWGROUP}'
+      args:
+        WWWGROUP: '1000'
     image: sail-8.0/app
     ports:
       - '${APP_PORT:-80}:80'
     environment:
-      # WWWUSER: '${WWWUSER}'
+      WWWUSER: '1000'
       LARAVEL_SAIL: 1
     volumes:
       - './web-laravel:/var/www/html'
