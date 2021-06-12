@@ -8,7 +8,8 @@ module.exports = {
   },
 
   async store(req, res) {
-    const { model, 
+    const {
+      model, 
       model_year, 
       fabrication_year, 
       price, 

@@ -1,17 +1,18 @@
 const Color = require('../models/Color');
 
 module.exports = {
-  async index(req, res) {
+  async index(req , res) {
     const colors = await Color.findAll();
 
     return res.json(colors);
   },
 
-  async store(req, res) {
-    const { name } = req.body;
+  async store(req , res) {
+    console.log(req.body);
+    const { color } = req.body;
 
-    const color = await Color.create({ name });
+    const colorResponse = await Color.create({ color });
 
-    return res.json(color);
+    return res.json(colorResponse); 
   }
 };

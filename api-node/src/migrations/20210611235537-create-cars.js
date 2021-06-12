@@ -69,3 +69,4 @@ module.exports = {
     await queryInterface.dropTable('cars ');
   }
 };
+
