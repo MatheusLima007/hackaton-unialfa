@@ -4,11 +4,11 @@ class Cars extends Model {
   static init(sequelize) {
     super.init({
       model: DataTypes.STRING,
-      model_year: DataTypes.YEAR,
-      fabrication_year: DataTypes.YEAR,
+      model_year: DataTypes.DATE,
+      fabrication: DataTypes.DATE,
       price: DataTypes.DOUBLE,
-      type: DataTypes.ENUM,
-      spotlight_photo: DataTypes.STRING,
+      type: DataTypes.BOOLEAN,
+      image: DataTypes.STRING,
     }, {
       sequelize
     })
