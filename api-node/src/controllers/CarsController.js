@@ -28,20 +28,39 @@ module.exports = {
   },
 
   async update(req, res) {
-    // const brandParams  = req.params;
-    // const { brand } = req.body;
+    const carParams  = req.params;
+    const { 
+      user_id, 
+      color_id, 
+      brand_id, 
+      model, 
+      model_year, 
+      fabrication, 
+      price, 
+      type, 
+      image  
+    } = req.body;
 
-    // const brandResponse = await Brand.update({ brand }, { where: { id: brandParams.id }}); 
-    
-    // return res.json(brandResponse);
+    const carResponse = await Car.update({ user_id, 
+      color_id, 
+      brand_id, 
+      model, 
+      model_year, 
+      fabrication, 
+      price, 
+      type, 
+      image  }, { where: { id: carParams.id }}); 
+
+    return res.json(carResponse);
   },
 
   async delete(req, res) {
-    // const brandParams = req.params;
+    const carParams = req.params;
 
-    // await Brand.destroy({ where: { id: brandParams.id }})
+    await Car.destroy({ where: { id: carParams.id }})
     
-    // return res.json();
+    return res.json();
+
 
   }
 };

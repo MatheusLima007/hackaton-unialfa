@@ -3,7 +3,8 @@ version: "3"
 services:
   laravel.test:
     build:
-      context: web-laravel/vendor/laravel/sail/runtimes/8.0
+      #context: web-laravel/vendor/laravel/sail/runtimes/8.0
+      context: .
       dockerfile: Dockerfile
       args:
         WWWGROUP: '1000'

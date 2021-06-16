@@ -19,9 +19,9 @@ module.exports = {
     const userParams  = req.params;
     const { name, login, password } = req.body;
 
-    const userReponse = await User.update({ name, login, password }, { where: { id: userParams.id }}); 
+    const userResponse = await User.update({ name, login, password }, { where: { id: userParams.id }}); 
 
-    return res.json(userReponse);
+    return res.json(userResponse);
   },
 
   async delete(req, res) {
