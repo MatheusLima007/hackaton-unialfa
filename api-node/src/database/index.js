@@ -13,9 +13,9 @@ Color.init(connection);
 Brand.init(connection);
 Cars.init(connection);
 
-User.associate(connection.models);
-Color.associate(connection.models);
-Brand.associate(connection.models);
-Cars.associate(connection.models);
+//User.associate(connection.models);
+//Color.associate(connection.models);
+//Brand.associate(connection.models);
+//Cars.associate(connection.models);
 
 module.exports = connection;

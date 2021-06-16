@@ -15,19 +15,19 @@ module.exports = {
     return res.json(brandResponse); 
   },
   
-   async put(req, res) {
-    const brand  = req.params; // recupera o index com os dados
+   async update(req, res) {
+    const brandParams  = req.params;
+    const { brand } = req.body;
+
+    const brandResponse = await Brand.update({ brand }, { where: { id: brandParams.id }}); 
     
-    brand[index] = brand; // sobrepõe o index obtido na rota de acordo com o novo valor
-    
-    return res.json(brand);
+    return res.json(brandResponse);
   },
 
-  async delete( req, res) {
-    const { brand_id } = req.params;
-    const Brand = req.body;
+  async delete(req, res) {
+    const brandParams = req.params;
 
-    Brand.destroy({ where: { id: brand_id }});
+    await Brand.destroy({ where: { id: brandParams.id }})
     
     return res.json();
 
