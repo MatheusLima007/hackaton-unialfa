@@ -8,7 +8,6 @@ module.exports = {
   },
 
   async store(req , res) {
-    console.log(req.body);
     const { color } = req.body;
 
     const colorResponse = await Color.create({ color });

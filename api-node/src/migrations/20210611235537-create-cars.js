@@ -38,7 +38,7 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      fabrication_year: {
+      fabrication: {
         type: Sequelize.DATE,
         allowNull: false,
       },
@@ -47,10 +47,10 @@ module.exports = {
         allowNull: false,
       },
       type: {
-        type: Sequelize.ENUM(['NOVO', 'SEMINOVO']),
+        type: Sequelize.BOOLEAN,
         allowNull: false,
       },
-      spotlight_photo: {
+      image: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -61,6 +61,10 @@ module.exports = {
       updated_at: {
         type: Sequelize.DATE,
         allowNull: false,
+      },
+      deleted_at: {
+        type: Sequelize.DATE,
+        allowNull: true,
       },
     });
   },

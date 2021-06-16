@@ -8,22 +8,9 @@ module.exports = {
   },
 
   async store(req, res) {
-    const {
-      model, 
-      model_year, 
-      fabrication_year, 
-      price, 
-      type, 
-      spotlight_photo 
-    } = req.body;
+    const { model, model_year, fabrication, price, type, image } = req.body;
 
-    const car = await Car.create({ 
-      model, 
-      model_year, 
-      fabrication_year, 
-      price, 
-      type, 
-      spotlight_photo  });
+    const car = await Car.create({ model, model_year, fabrication, price, type, image });
 
     return res.json(car);
   }
