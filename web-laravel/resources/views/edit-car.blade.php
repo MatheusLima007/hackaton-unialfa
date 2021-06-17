@@ -29,7 +29,7 @@
             <div class="justify-content-center ms-5">
                 <ul class="nav">
                     <li class="nav-item me-5">
-                        <a class="nav-link" href="../dashboard">
+                        <a class="nav-link" href="../../dashboard">
                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-shop" viewBox="0 0 16 16">
                                 <path d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z" />
                             </svg>
@@ -45,10 +45,10 @@
                         <a class="nav-link" href="../used-cars"><strong>Carros Usados</strong></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link border-bottom border-2" href="../create-car"><strong>Adicionar Carro</strong></a>
+                        <a class="nav-link" href="../create-car"><strong>Adicionar Carro</strong></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Atualizar carro</a>
+                        <a class="nav-link border-bottom border-2" href="../edit-car/{{ $data->id }}"><strong>Atualizar carro</strong></a>
                     </li>
                 </ul>
             </div>
@@ -68,19 +68,20 @@
 
     @if ($toast ?? '' === true)
         <div class="alert alert-success text-center" role="alert">
-            <strong>Carro cadastrado com sucesso!</strong>
+            <strong>Carro atualizado com sucesso!</strong>
         </div>
     @endif
 
     <div class="album py-5 bg-light">
         <div class="container">
-            <form method="POST" action="/create-car" class="needs-validation" novalidate>
+            <form action="{{ url('/edit-car', ['id' => $data->id]) }}" method="post" class="needs-validation" novalidate>
                 <div class="row">
+                    @method('put')
                     @csrf
                     <div class="mb-5 col-md-4">
                         <label for="model" class="form-label">Modelo</label>
 
-                        <input type="text" class="form-control" id="model" name="model" required>
+                        <input type="text" value="{{ $data->model }}" class="form-control" id="model" name="model" required>
                         <div class="invalid-feedback">
                             Adicione um modelo!
                         </div>
@@ -88,7 +89,7 @@
                     <div class="mb-5 col-md-8">
                         <label for="image" class="form-label">URL da Imagem</label>
 
-                        <input type="text" class="form-control" id="image" name="image" required>
+                        <input type="text" value="{{ $data->image }}" class="form-control" id="image" name="image" required>
                         <div class="invalid-feedback">
                             Adicione uma imagem!
                         </div>
@@ -97,7 +98,7 @@
                     <div class="mb-5 col-md-3">
                         <label for="price" class="form-label">Preço</label>
 
-                        <input type="number" class="form-control" id="price" name="price" required>
+                        <input type="number" value="{{ $data->price }}" class="form-control" id="price" name="price" required>
                         <div class="invalid-feedback">
                             Adicione um preço!
                         </div>
@@ -106,9 +107,12 @@
                         <label for="type" class="form-label">Tipo</label>
 
                         <select name="type" class="form-select" id="type" required>
-                            <option selected disabled value="">Selecione um tipo</option>
-                            <option value="true">Novo</option>
-                            <option value="false">usado</option>
+                            <option selected value="{{ $data->type }}">{{ $data->type === true ? 'Novo' : 'Usado' }}</option>
+                            @if($data->type === true)
+                                <option value="false">Usado</option>
+                            @else
+                                <option value="true">Novo</option>
+                            @endif
                         </select>
                         <div class="invalid-feedback">
                             Selecione um tipo!
@@ -118,7 +122,7 @@
                     <div class="mb-5 col-md-3">
                         <label for="model_year" class="form-label">Ano modelo</label>
 
-                        <input type="date" class="form-control" id="model_year" name="model_year" required>
+                        <input type="date" value="{{ $data->model_year }}" class="form-control" id="model_year" name="model_year" required>
                         <div class="invalid-feedback">
                             Selecione o ano do modelo!
                         </div>
@@ -126,7 +130,7 @@
                     <div class="mb-5 col-md-3">
                         <label for="fabrication" class="form-label">Ano de fabricação</label>
 
-                        <input type="date" class="form-control" id="fabrication" name="fabrication" required>
+                        <input type="date" value="{{ $data->fabrication }}" class="form-control" id="fabrication" name="fabrication" required>
                         <div class="invalid-feedback">
                             Selecione o ano de fabricação!
                         </div>
@@ -141,7 +145,7 @@
                         <label for="color_id" class="form-label">Cor</label>
 
                         <select name="color_id" class="form-select" id="color_id" required>
-                            <option selected disabled value="">Selecione uma cor</option>
+                            <option selected value="{{ $data->Color->id }}">{{ $data->Color->color }}</option>
                             @foreach($colors ?? '' as $color)
                                 <option value="{{ $color->id }}">{{ $color->color }}</option>
                             @endforeach
@@ -154,7 +158,7 @@
                         <label for="brand_id" class="form-label">Marca</label>
 
                         <select name="brand_id" class="form-select" id="brand_id" required>
-                            <option selected disabled value="">Selecione uma marca</option>
+                            <option selected value="{{ $data->Brand->id }}">{{ $data->Brand->brand }}</option>
                             @foreach($brands ?? '' as $brand)
                                 <option value="{{ $brand->id }}">{{ $brand->brand }}</option>
                             @endforeach
@@ -169,8 +173,9 @@
                         <div class="col"></div>
                         <div class="col"></div>
                         <div class="col"></div>
-                        <a class="me-2 col btn btn-outline-danger" href="dashboard">Cancelar</a>
-                        <button type="submit"  class="ms-2 me-2 col btn btn-primary">Salvar</button>
+                        <a class="me-2 col btn btn-outline-danger" href="../dashboard">Cancelar</a>
+                        <input class="ms-2 me-2 col btn btn-primary" type="submit" value="Atualizar" />
+                        <!-- <button type="submit"  class="ms-2 me-2 col btn btn-primary">Salvar</button> -->
                     </div>
                 </div>
             </div>

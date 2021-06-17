@@ -23,6 +23,7 @@ routes.put('/brands/:id', BrandController.update);
 routes.delete('/brands/:id', BrandController.delete);
 
 routes.get('/cars', CarsController.index);
+routes.get('/cars/:id', CarsController.getByid);
 routes.post('/cars', CarsController.store);
 routes.put('/cars/:id', CarsController.update);
 routes.delete('/cars/:id', CarsController.delete);

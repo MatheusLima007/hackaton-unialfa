@@ -1,12 +1,50 @@
-const Brand = require('../models/Brand');
 const Car = require('../models/Cars');
+const Brand = require('../models/Brand');
 const Color = require('../models/Color');
 
 module.exports = {
   async index(req, res) {
-    const cars = await Car.findAll();
+    const cars = await Car.findAll({ 
+      order: [['id', 'DESC']], 
+      include: [
+        {
+          model: Brand,
+          as: 'Brand',
+          required: true
+        },
+        {
+          model: Color,
+          as: 'Color',
+          required: true
+        }
+      ] 
+    });
 
     return res.json(cars);
+  },
+
+  async getByid(req, res) {
+    const carParams  = req.params;
+    
+    const car = await Car.findAll({ 
+      include: [
+        {
+          model: Brand,
+          as: 'Brand',
+          required: true
+        },
+        {
+          model: Color,
+          as: 'Color',
+          required: true
+        }
+      ],
+      where: {
+        id: carParams.id
+      }
+    })
+
+    return res.json(car);
   },
 
   async store(req, res) {
@@ -60,7 +98,5 @@ module.exports = {
     await Car.destroy({ where: { id: carParams.id }})
     
     return res.json();
-
-
   }
 };

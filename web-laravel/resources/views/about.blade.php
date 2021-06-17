@@ -14,6 +14,11 @@
             color: white;
             padding: 15px;
         } */
+        .card-img-top {
+            width: 600px;
+            height: auto;
+            border-radius: 10px;
+        }
     </style>
 </head>
 
@@ -38,6 +43,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="used-cars"><strong>Carros Usados</strong></a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="create-car"><strong>Adicionar Carro</strong></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Atualizar carro</a>
+                    </li>
                 </ul>
             </div>
 
@@ -54,7 +65,7 @@
         </div>
     </nav>
 
-    <div class="container-fluid text-center">
+    <div class="container-fluid text-center mb-4">
         <div class="row content">
             <div class="col-sm-2 sidenav">
                 <!-- <p><a href="#">Link</a></p>
@@ -69,7 +80,11 @@
                     grande, temos esse site para mostrar os nossos veículos novos e seminovos, além da instalação
                     de uma rede interna e computadores para nossos funcionarios.
                 </p>
+                <div class="col-sm-12 ">
+                    <img class="card-img-top" src="https://quatrorodas.abril.com.br/wp-content/uploads/2020/08/DSCF0019_v2.jpg?quality=70&strip=info" alt="..." />
+                </div>
             </div>
+
             <div class="col-sm-2 sidenav">
                 <!-- <div class="well">
                     <p>ADS</p>
@@ -82,7 +97,7 @@
     </div>
 
     <footer class="container-fluid text-center">
-        <p>Footer Text</p>
+        <p>&copy; Desenvolvido por Matheus Lima - Bruno Silva</p>
     </footer>
 
 </body>

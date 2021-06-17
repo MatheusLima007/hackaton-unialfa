@@ -1,11 +1,8 @@
 <?php
 
 use App\Http\Controllers\CarsController;
-use App\Http\Controllers\Controller;
-use Facade\FlareClient\Http\Client;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
-use Support\Services\ApiService;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,57 +15,36 @@ use Support\Services\ApiService;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-
+# VIEW routes
 Route::get('/dashboard', [CarsController::class, 'index']);
 
-// Route::get('/dashboard', function () {
-//     $reponse = Http::acceptJson()->get('http://192.168.0.140:3000/users');
-//     $datas = $reponse->object();
+Route::get('/new-cars', [CarsController::class, 'newCars']);
 
-//     //return view('dashboard', $datas);
-//     return view('dashboard', compact('datas'));
-// });
+Route::get('/used-cars', [CarsController::class, 'usedCars']);
 
-Route::get('/item/{id}', function ($id) {
-    return view('item', ['nameId' => $id]);
-});
+Route::get('/create-car', [CarsController::class, 'indexCreateCar']);
+
+Route::get('/edit-car/{id}', [CarsController::class, 'editCar']);
+
+Route::get('/item/{id}', [CarsController::class, 'showCar']);
 
 Route::get('/about', function () {
     return view('about');
 });
 
 
-Route::get('/new-cars', function () {
-    return view('new-cars');
-});
+# CRUD routes
+Route::post('/create-car', [CarsController::class, 'store']);
 
-Route::get('/used-cars', function () {
-    return view('used-cars');
-});
+Route::delete('/dashboard/{id}', [CarsController::class, 'delete']);
 
-Route::get('/create-car', function () {
-    return view('create-car');
-});
+Route::put('/edit-car/{id}', [CarsController::class, 'update']);
 
-//Route::get('/users', [Controller::class, 'index']);
 
-Route::get('/users', function () {
-    // $reponse = http::post('http://192.168.0.140:3000/users', [
-    //     "name" => "matheus",
-    //     "login" => "usuario",
-    //     "password" => "senha"
-    // ]);
-    $reponse = Http::acceptJson()->get('http://192.168.0.140:3000/users');
+# Api Routes
+Route::get('/cars', function () {
+    $reponse = Http::acceptJson()->get('http://192.168.0.140:3000/cars');
     $data = $reponse->json();
     $dataJson = $reponse->object();
     dd($data, $dataJson);
-    // $get = Http::acceptJson()->get('http://192.168.0.140:3000/users');
-    // dd($get);
 });
-
-
-Route::post('/create-car', [CarsController::class, 'store']);

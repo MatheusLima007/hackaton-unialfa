@@ -16,6 +16,10 @@ class Cars extends Model {
       sequelize
     })
   }
+  static associate(models) {
+    this.belongsTo(models.Brand, { foreignKey: 'brand_id', as: 'Brand' });
+    this.belongsTo(models.Color, { foreignKey: 'color_id', as: 'Color' });
+  }
 }
 
 module.exports = Cars;
